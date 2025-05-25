@@ -10,6 +10,9 @@ from agno.models.google import Gemini
 from agno.tools.duckduckgo import DuckDuckGoTools
 import logging
 from config import settings
+import importlib
+import pkgutil
+from pathlib import Path
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -149,30 +152,77 @@ def create_gemini_model() -> Gemini:
         api_key=settings.GOOGLE_API_KEY
     )
 
+# --- Dynamic Tool Loader ---
+
+def load_all_tools():
+    """
+    Dynamically import all tool classes from the tools/ directory and return instances.
+    Each tool should have a class named <ToolName>Tool and a no-arg constructor.
+    """
+    tools_dir = Path(__file__).parent / "tools"
+    tool_instances = []
+    if not tools_dir.exists():
+        return tool_instances
+    for _, module_name, _ in pkgutil.iter_modules([str(tools_dir)]):
+        try:
+            module = importlib.import_module(f"tools.{module_name}")
+            # Find all classes ending with 'Tool' in the module
+            for attr in dir(module):
+                if attr.endswith("Tool") and attr != "BaseTool":
+                    tool_class = getattr(module, attr)
+                    tool_instances.append(tool_class())
+        except Exception as e:
+            logger.warning(f"Failed to load tool {module_name}: {e}")
+    return tool_instances
+
+# --- Example Tool Stubs (to be implemented in backend/tools/) ---
+# These will be loaded dynamically, but for now, we can add stubs here for IDEs.
+class ZapierTool:
+    def run(self, *args, **kwargs):
+        return "Zapier integration not implemented yet."
+
+class GitHubTool:
+    def run(self, *args, **kwargs):
+        return "GitHub integration not implemented yet."
+
+class SlackTool:
+    def run(self, *args, **kwargs):
+        return "Slack integration not implemented yet."
+
+class WebhookTool:
+    def run(self, *args, **kwargs):
+        return "Webhook integration not implemented yet."
+
+class MCPTool:
+    def run(self, *args, **kwargs):
+        return "MCP integration not implemented yet."
+
+# --- Agent Factory Update ---
 def create_agent() -> StreamingAgent:
-    """Create and return an optimized Gemini agent with search capabilities"""
+    """Create and return an optimized Gemini agent with all available tools"""
     try:
         model = create_gemini_model()
-        tools = [DuckDuckGoTools()] if settings.ENABLE_WEB_SEARCH else []
-        
+        # Load all tools from the tools/ directory
+        dynamic_tools = load_all_tools()
+        # Always include DuckDuckGoTools if web search is enabled
+        if settings.ENABLE_WEB_SEARCH:
+            dynamic_tools.append(DuckDuckGoTools())
         agent = StreamingAgent(
             model=model,
-            tools=tools,
+            tools=dynamic_tools,
             instructions=[
                 "You are a helpful AI assistant powered by Gemini 2.5 Flash Preview.",
-                "You can search the web for current information when needed, but if search fails due to rate limits, provide helpful responses based on your knowledge.",
+                "You can use integrations and tools (Zapier, GitHub, Slack, Webhooks, MCP, etc.) as needed.",
                 "Always provide accurate, helpful, and well-structured responses.",
-                "If you encounter search errors, acknowledge them briefly and provide the best answer you can from your training data.",
+                "If you encounter tool errors, acknowledge them briefly and provide the best answer you can from your training data.",
                 "Be conversational and helpful in all interactions.",
                 "Format your responses in markdown when appropriate for better readability.",
             ],
             show_tool_calls=settings.SHOW_TOOL_CALLS,
             markdown=settings.ENABLE_MARKDOWN,
         )
-        
-        logger.info(f"Agent created successfully with {len(tools)} tools")
+        logger.info(f"Agent created successfully with {len(dynamic_tools)} tools")
         return agent
-        
     except Exception as e:
         logger.error(f"Failed to create agent: {e}")
         raise

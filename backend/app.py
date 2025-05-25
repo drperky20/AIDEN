@@ -10,7 +10,7 @@ from fastapi import FastAPI, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 import logging
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from config import settings
 from agent import create_agent_with_fallback
 import asyncio
@@ -319,6 +319,25 @@ async def root() -> Dict[str, str]:
         "docs": "/docs",
         "health": "/health"
     }
+
+@app.get("/integrations")
+async def list_integrations() -> Dict[str, List[Dict[str, str]]]:
+    """
+    List all available integrations/tools loaded in the agent.
+    Returns a list of tool names and their status.
+    """
+    global agent
+    if not agent or not hasattr(agent, "tools"):
+        return {"integrations": []}
+    integrations = []
+    for tool in agent.tools:
+        tool_name = tool.__class__.__name__
+        # For now, all loaded tools are "enabled"
+        integrations.append({
+            "name": tool_name,
+            "status": "enabled"
+        })
+    return {"integrations": integrations}
 
 if __name__ == "__main__":
     import uvicorn
