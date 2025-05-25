@@ -4,4 +4,8 @@ fastapi
 uvicorn[standard]
 python-multipart
 jinja2
-aiosqlite 
+aiosqlite
+requests
+PyGithub
+slack_sdk
+python-dotenv 
