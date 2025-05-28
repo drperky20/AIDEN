@@ -12,6 +12,7 @@ aiosqlite>=0.19.0  # Async SQLite for memory/storage
 
 # API clients and integrations
 requests>=2.31.0  # HTTP client
+httpx>=0.25.0  # Async HTTP client for streaming API calls
 PyGithub>=2.1.1  # GitHub API client
 slack_sdk>=3.26.0  # Slack API client
 duckduckgo-search>=4.0 # DuckDuckGo search tool dependency
