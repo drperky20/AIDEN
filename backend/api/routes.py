@@ -16,9 +16,13 @@ from backend.config import settings
 from backend.core.memory import memory_manager
 from backend.agent.agent_factory import get_agent_instance # To get the initialized agent
 from backend.agent.base_agent import StreamingAgent # For type hinting
+from .voice import router as voice_router  # Import voice endpoints
 
 logger = logging.getLogger(__name__)
 router = APIRouter() # Main router for the API
+
+# Include voice endpoints
+router.include_router(voice_router)
 
 # --- Request Models --- #
 class ChatMessageInput(BaseModel):

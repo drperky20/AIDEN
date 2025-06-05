@@ -7,6 +7,14 @@ uvicorn[standard]>=0.24.0  # ASGI server
 python-multipart>=0.0.6  # For form data handling
 python-dotenv>=1.0.0  # Environment variable management
 
+# Voice functionality
+elevenlabs>=1.0.0  # ElevenLabs Text-to-Speech API
+whisper-live>=0.1.0  # Real-time Whisper STT
+faster-whisper>=1.0.0  # High-performance Whisper implementation
+pyaudio>=0.2.14  # Audio I/O
+websockets>=13.0  # WebSocket support for real-time audio
+pydub>=0.25.1  # Audio processing utilities
+
 # Database
 aiosqlite>=0.19.0  # Async SQLite for memory/storage
 
