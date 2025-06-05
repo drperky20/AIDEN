@@ -41,6 +41,9 @@ class Settings:
     VOICE_ACTIVATION_THRESHOLD: float = float(os.getenv("VOICE_ACTIVATION_THRESHOLD", "0.02"))
     MAX_SILENCE_DURATION: float = float(os.getenv("MAX_SILENCE_DURATION", "2.0"))
 
+    # Performance
+    USE_UVLOOP: bool = os.getenv("USE_UVLOOP", "True").lower() in ("true", "1", "t")
+
     # Agent Configuration
     ENABLE_WEB_SEARCH: bool = os.getenv("ENABLE_WEB_SEARCH", "True").lower() in ("true", "1", "t")
     SHOW_TOOL_CALLS: bool = os.getenv("SHOW_TOOL_CALLS", "True").lower() in ("true", "1", "t")

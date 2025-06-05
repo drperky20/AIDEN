@@ -231,6 +231,14 @@ Optimized for macOS with limited RAM:
 - **Response Time**: Sub-second for most operations
 - **Local Storage**: SQLite for efficient data management
 
+### Mac M1 Specific Tips
+
+- AIDEN now uses `uvloop` when available for a faster event loop on Unix/Mac.
+- The Whisper STT automatically selects `int8` compute on Apple Silicon for
+  reduced latency.
+- When installing dependencies, use Homebrew Python or ensure arm64 wheels are
+  used for optimal performance.
+
 ## 🤝 Contributing
 
 1. Fork the repository

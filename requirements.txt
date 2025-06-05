@@ -44,4 +44,5 @@ inquirer>=3.1.3  # Collection of common interactive command line user interfaces
 # pytest>=7.4.3  # Testing framework
 # pytest-asyncio>=0.21.1  # Async testing support
 # black>=23.11.0  # Code formatting
-# isort>=5.12.0  # Import sorting 
+# isort>=5.12.0  # Import sorting
+uvloop>=0.17.0  # High performance event loop for Unix/Mac

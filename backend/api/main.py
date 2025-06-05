@@ -5,10 +5,19 @@ Initializes the FastAPI app, CORS, logging, and handles startup/shutdown events
 such as initializing the database and the agent.
 """
 import logging
+import asyncio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config import settings
+
+try:
+    if settings.USE_UVLOOP:
+        import uvloop
+        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+        logging.getLogger(__name__).info("Using uvloop event loop policy")
+except Exception:
+    pass
 from backend.core.memory import memory_manager # Updated import
 from backend.agent.agent_factory import initialize_global_agent, get_agent_instance # Updated import
 from .routes import router as api_router # Will create routes.py next
