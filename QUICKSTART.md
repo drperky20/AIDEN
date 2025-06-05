@@ -23,7 +23,7 @@ export GOOGLE_API_KEY="your-api-key-here"
 
 **Option B: Create .env file**
 ```bash
-cp env.example .env
+cp .env.example .env
 # Edit .env file and add your API key
 ```
 
