@@ -129,3 +129,5 @@ temp/
 *.njsproj
 *.sln
 *.sw? 
+conversation_history.db
+backend/conversation_history.db
