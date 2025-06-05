@@ -46,17 +46,17 @@ A beautiful, intelligent command-line assistant powered by Google Gemini and the
 
 5. **Start AIDEN**
    ```bash
-   python aiden.py chat
+   python aiden_cli.py chat
    ```
 
 ## 🎯 CLI Commands
 
 ### Main Commands
 
-- `python aiden.py chat` - Start interactive chat with AIDEN
-- `python aiden.py status` - Show system health and status
-- `python aiden.py config` - Manage configuration settings
-- `python aiden.py version` - Show version information
+- `python aiden_cli.py chat` - Start interactive chat with AIDEN
+- `python aiden_cli.py status` - Show system health and status
+- `python aiden_cli.py config` - Manage configuration settings
+- `python aiden_cli.py version` - Show version information
 
 ### Chat Commands
 
@@ -75,26 +75,26 @@ Once in chat mode, you can use these commands:
 
 ```bash
 # Show current configuration
-python aiden.py config --show
+python aiden_cli.py config --show
 
 # Set Google API key
-python aiden.py config --api-key "your-api-key-here"
+python aiden_cli.py config --api-key "your-api-key-here"
 
 # Configure backend server
-python aiden.py config --backend-host localhost --backend-port 8000
+python aiden_cli.py config --backend-host localhost --backend-port 8000
 ```
 
 ### Status Monitoring
 
 ```bash
 # One-time status check
-python aiden.py status
+python aiden_cli.py status
 
 # Watch mode (updates every 5 seconds)
-python aiden.py status --watch
+python aiden_cli.py status --watch
 
 # Custom update interval
-python aiden.py status --watch --interval 10
+python aiden_cli.py status --watch --interval 10
 ```
 
 ## 🏗️ Architecture
@@ -169,36 +169,36 @@ MEM0_API_KEY=your_mem0_api_key_here
 ### Basic Chat
 
 ```bash
-python aiden.py chat
+python aiden_cli.py chat
 ```
 
 ### Remote Backend
 
 ```bash
-python aiden.py chat --backend-url http://your-server:8000 --no-auto-start-backend
+python aiden_cli.py chat --backend-url http://your-server:8000 --no-auto-start-backend
 ```
 
 ### Status Monitoring
 
 ```bash
 # Quick status check
-python aiden.py status
+python aiden_cli.py status
 
 # Continuous monitoring
-python aiden.py status --watch --interval 5
+python aiden_cli.py status --watch --interval 5
 ```
 
 ### Configuration Management
 
 ```bash
 # View current settings
-python aiden.py config --show
+python aiden_cli.py config --show
 
 # Update API key
-python aiden.py config --api-key "new-key"
+python aiden_cli.py config --api-key "new-key"
 
 # Change backend settings
-python aiden.py config --backend-host 192.168.1.100 --backend-port 9000
+python aiden_cli.py config --backend-host 192.168.1.100 --backend-port 9000
 ```
 
 ## 🛠️ Development
@@ -248,7 +248,7 @@ This project is licensed under the MIT License. See LICENSE file for details.
 If you encounter issues:
 
 1. Check the [troubleshooting guide](docs/troubleshooting.md)
-2. Run `python aiden.py status` to diagnose problems
+2. Run `python aiden_cli.py status` to diagnose problems
 3. Check your API keys and configuration
 4. Open an issue on GitHub
 
