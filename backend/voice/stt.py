@@ -57,6 +57,16 @@ class WhisperSTT:
         self.silence_threshold = silence_threshold
         self.min_audio_length = min_audio_length
         self.language = language
+
+        # Auto-tune for Apple Silicon
+        if device == "auto" and compute_type == "auto":
+            import platform
+            if platform.system() == "Darwin" and platform.machine() == "arm64":
+                device = "cpu"
+                compute_type = "int8"
+
+        self.device = device
+        self.compute_type = compute_type
         
         # Initialize Whisper model
         logger.info(f"Loading Whisper model: {model_size}")

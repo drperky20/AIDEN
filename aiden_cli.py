@@ -16,6 +16,14 @@ Run: python aiden_cli.py
 import asyncio
 import json
 import os
+from backend.config import settings
+
+try:
+    if settings.USE_UVLOOP:
+        import uvloop
+        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+except Exception:
+    pass
 import sys
 import httpx
 import subprocess
@@ -117,10 +125,10 @@ class AidenCLI:
                 BarColumn(),
                 TaskProgressColumn(),
             ) as progress:
-                task = progress.add_task("Starting backend...", total=10)
-                
-                for i in range(10):
-                    await asyncio.sleep(1)
+                task = progress.add_task("Starting backend...", total=20)
+
+                for i in range(20):
+                    await asyncio.sleep(0.5)
                     progress.update(task, advance=1)
                     
                     status = await self.check_backend_status()
@@ -509,11 +517,11 @@ Whisper: {voice_config.get('whisper_model', 'Not configured')}""",
                 
                 # This would normally handle WebSocket connection for real-time voice
                 # For now, we'll show a placeholder interface
-                await asyncio.sleep(2)
+                await asyncio.sleep(1)
                 live.update("🔊 Voice mode ready - implement WebSocket client here")
                 
                 # Wait for user to interrupt
-                await asyncio.sleep(30)
+                await asyncio.sleep(10)
                 
         except KeyboardInterrupt:
             self.console.print("\n\n🔇 Voice mode stopped", style="yellow")
