@@ -41,7 +41,7 @@ A beautiful, intelligent command-line assistant powered by Google Gemini and the
 4. **Set up environment variables**
    ```bash
    cp .env.example .env
-   # Edit .env and add your Google API key
+   # Edit .env and fill in the required API keys
    ```
 
 5. **Start AIDEN**
@@ -125,30 +125,48 @@ AIDEN/
 
 ### Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file in the project root (you can copy from `.env.example`):
 
 ```env
-# Required
-GOOGLE_API_KEY=your_google_api_key_here
+# ----- Model Configuration -----
+USE_OPENROUTER=True
+OPENROUTER_API_KEY=your_openrouter_api_key_here
+OPENROUTER_MODEL_ID=meta-llama/llama-4-maverick:free
 
-# Optional API Configuration
+GOOGLE_API_KEY=your_google_api_key_here
+GEMINI_MODEL_ID=gemini-1.5-flash-latest
+
+# ----- Voice Configuration -----
+ENABLE_VOICE_MODE=True
+ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
+ELEVENLABS_VOICE_ID=21m00Tcm4TlvDq8ikWAM
+ELEVENLABS_MODEL_ID=eleven_flash_v2_5
+WHISPER_MODEL_SIZE=tiny.en
+VOICE_ACTIVATION_THRESHOLD=0.02
+MAX_SILENCE_DURATION=2.0
+
+# ----- API Settings -----
 API_HOST=0.0.0.0
 API_PORT=8000
-API_RELOAD=False
+API_RELOAD=True
+CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
 
-# Agent Settings
+# ----- Performance -----
+USE_UVLOOP=True
+
+# ----- Agent Settings -----
 ENABLE_WEB_SEARCH=True
 SHOW_TOOL_CALLS=True
 ENABLE_MARKDOWN=True
 MAX_HISTORY_MESSAGES=5
 
-# Environment
+# ----- Environment -----
 ENVIRONMENT=development
 
-# Database
+# ----- Database -----
 DATABASE_URL=sqlite:///../data/aiden_memory.db
 
-# Optional: Mem0 for advanced memory features
+# ----- Optional Integrations -----
 MEM0_API_KEY=your_mem0_api_key_here
 ```
 

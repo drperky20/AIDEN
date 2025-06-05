@@ -44,8 +44,8 @@ See the [Setup Guide](./setup_guide.md) for detailed installation instructions.
 ### Quick Start
 
 1. Clone the repository
-2. Create a `.env` file (copy from `.env.example` if available)
-3. Set your `GOOGLE_API_KEY` in the `.env` file
+2. Copy `.env.example` to `.env`
+3. Edit `.env` and provide the required API keys
 4. Run the development server:
 
 ```bash

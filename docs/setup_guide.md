@@ -42,17 +42,24 @@ pip install -r backend/requirements.txt
 Create a `.env` file in the project root:
 
 ```bash
-cp .env.example .env  # If .env.example exists
+cp .env.example .env
 ```
 
-Edit the `.env` file and set your Google API Key:
+Edit the `.env` file and fill in the required API keys. The example file
+contains all available settings:
 
-```
+```env
+# Model configuration
+OPENROUTER_API_KEY=your_openrouter_api_key_here
 GOOGLE_API_KEY=your_google_api_key_here
+
+# Voice configuration (optional)
+ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
+
+# API settings
 API_HOST=0.0.0.0
 API_PORT=8000
 API_RELOAD=True
-ENVIRONMENT=development
 ```
 
 You can get a Google API Key from [Google AI Studio](https://aistudio.google.com/app/apikey).
