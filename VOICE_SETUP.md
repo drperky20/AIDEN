@@ -40,7 +40,9 @@ This guide will help you set up the complete voice-enabled AIDEN system with **L
 Create a `.env` file in the project root:
 
 ```bash
-# Copy this template and update with your API keys
+cp .env.example .env
+# Then update the file with your API keys
+# (.env is ignored by Git)
 
 # ===================
 # Model Configuration
